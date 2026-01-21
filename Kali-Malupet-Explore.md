@@ -201,3 +201,78 @@ XXE is an attack where hackers inject malicious XML code into an application tha
 nmap -v 192.168.101.___
 ```
 <img width="898" height="686" alt="image" src="https://github.com/user-attachments/assets/28d915cf-54ed-457e-b728-ed593c3cbe6a" />
+
+## Step 12.2: Nmap Honeypot Demonstration
+* Nmap DPWH to show all the possible open ports this will show many open ports, not all of the open ports are able to attack some of it are honeypot
+```bash
+nmap -v www.dpwh.gov.ph
+```
+<img width="1524" height="711" alt="image" src="https://github.com/user-attachments/assets/bc9988a2-0f1a-455b-a042-b890f0c80ded" />
+
+## Step 12.3: Accessing Honeypot LAB on SecureCRT CLI Kali-Linux
+* On SecureCRT Kali-Linux CLI, copy and paste this commands, it will lead you to the directory pentbox
+```bash
+cd /home/kali/pentbox-1.8
+```
+<img width="286" height="101" alt="image" src="https://github.com/user-attachments/assets/dc1e69be-d861-44d5-af30-51bd34d69946" />
+
+* This command will open the CLI of HoneyPot Pentbox
+```bash
+ ./pentbox.rb
+```
+<img width="540" height="459" alt="image" src="https://github.com/user-attachments/assets/40666ff8-fcec-4128-b332-b44cf494cd18" />
+
+* BECOME A BOSSING
+```bash
+sudo su
+```
+<img width="387" height="99" alt="image" src="https://github.com/user-attachments/assets/6d5093ef-06a3-4cd9-b218-13c2ba3f1777" />
+
+
+## Step 12.4: Creating Fake SMTP PORT
+* We will attempt to create a open port for SMTP (Simple Mail Transfer Protocol), this will show the demonstration of opening a port and will lure attackers to attack the vulnerable open port
+
+* Type 2 - Network Tools
+<img width="360" height="230" alt="image" src="https://github.com/user-attachments/assets/5c81ea33-81b7-4747-95b4-b85e6288da54" />
+
+* Next, Type 3 - HoneyPot
+<img width="464" height="267" alt="image" src="https://github.com/user-attachments/assets/378cd78b-db11-4768-ba39-2e81e87ed3dc" />
+
+* Next, Type 2 - Manual Configuration [Advanced Users, more options]
+<img width="476" height="63" alt="image" src="https://github.com/user-attachments/assets/f2aedd63-815c-408e-a86b-9b4b8e4c8957" />
+
+* Next, Type 25 – Set service port (SMTP), then if prompted to save a log type and activate beep type "n" 
+<img width="622" height="421" alt="image" src="https://github.com/user-attachments/assets/604907fd-27d9-488f-a65e-9b3837636a2f" />
+
+
+## Step 12.5: Demonstrating Attack on Honeypot
+* 1st show that port 25 is opened by using nmap on CMD, remember to change the 4th octet based on the given ip address of your own kali-linux
+```bash
+nmap -v 192.168.101.___
+```
+<img width="739" height="626" alt="image" src="https://github.com/user-attachments/assets/a9635dd6-862f-4982-88b7-a6b848c45179" />
+
+* On CMD telnet the IP Address of the Kali-Linux followed by the port number opened which is port number 25, remember to change the 4th octet based on the given ip address of your own kali-linux and click Enter
+```bash
+telnet  192.168.101.___ 25
+```
+<img width="636" height="300" alt="image" src="https://github.com/user-attachments/assets/7f1c88ae-cb10-4e86-872f-956639b2e767" />
+
+* Afterwards it will show an black screen on the cmd, continue to the SECURECRT
+<img width="696" height="521" alt="image" src="https://github.com/user-attachments/assets/258c8af5-cfcf-4b0f-8187-a3134cc71718" />
+
+* On the SecureCRT it will show that the intrusion is detected 
+<img width="830" height="506" alt="image" src="https://github.com/user-attachments/assets/def793df-0674-4482-b8fe-90dfd6d2dbfe" />
+
+## Step 12.6: Opening Other ports other than port 25
+* Continue to practice these steps for other open ports like port 23 which is telnet
+
+## Additional Information
+* What This Shows About Attackers:
+* Why Port 25?
+* SMTP ports are commonly attacked for:
+* Email spamming/relaying
+* Credential harvesting
+* Mail server exploitation
+* Attackers automatically scan all ports looking for vulnerabilities
+
