@@ -150,3 +150,54 @@ SELECT * FROM users WHERE username = 'input' AND password = 'input';
 
 * The bottom image shows that the attack works and proves that the sql statement input must be parametized and must be limited to the user who is accessing the account to defend SQLi Injection
 <img width="1230" height="701" alt="image" src="https://github.com/user-attachments/assets/ed2cd82c-1f00-45bd-b689-866fe73e0277" />
+
+
+# Step 11: XML External Entities (XXE)
+XXE is an attack where hackers inject malicious XML code into an application that processes XML files, tricking it into:
+* Reading sensitive files (like /etc/passwd on Linux)
+* Making network requests to internal systems
+* Causing denial of service crashes
+* Stealing data from the serverXXE is an attack where hackers inject malicious XML code into an application that processes XML files, tricking it into:
+* Reading sensitive files (like /etc/passwd on Linux)
+* Making network requests to internal systems
+* Causing denial of service crashes
+* Stealing data from the server
+
+* Go to OWASP 2017 - A4 XML Eternal Entities - XML Validator
+<img width="1026" height="674" alt="image" src="https://github.com/user-attachments/assets/a6a84a41-86af-4957-9c36-9afe12fea4df" />
+
+* Paste this payload:
+```bash
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE foo [  
+  <!ELEMENT foo ANY >
+  <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
+<foo>&xxe;</foo>
+```
+<img width="656" height="241" alt="image" src="https://github.com/user-attachments/assets/ffc532ed-7a5b-4316-b8ee-e98159050eb1" />
+
+* What the payload does is executes all the hidden contents of /etc/passwd, which basically looks like the image below: now, to read this
+* The long text you see IS THE CONTENTS OF /etc/passwd. Each line represents a user account on the server:
+### Example Line:
+### root:x:0:0:root:/root:/usr/bin/zsh
+* root = Username
+* x = Password placeholder (actual hashes are in /etc/shadow)
+* 0 = User ID (0 = root/superuser)
+* 0 = Group ID
+* root = Description
+* /root = Home directory
+* /usr/bin/zsh = Default shell
+
+<img width="1699" height="649" alt="image" src="https://github.com/user-attachments/assets/86bfd368-fb0a-45ce-9ec9-cd10f9c3abc5" />
+
+* Now how to prevent this?
+* DISABLE External Entities in XML Parser
+* Use SAX or StAX Parsers (not DOM) when possible
+
+# Step 12: Introduction to Honey Pot
+* A honeypot is a decoy system that lures attackers to study their behavior without risking real assets.
+* Open CMD on PC and nmap the given IP Address of the Kali Linux, change the 4th octet to your given IP Address
+```bash
+nmap -v 192.168.101.___
+```
+<img width="898" height="686" alt="image" src="https://github.com/user-attachments/assets/28d915cf-54ed-457e-b728-ed593c3cbe6a" />
