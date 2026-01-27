@@ -1,4 +1,4 @@
-<div align="center">
+<img width="1579" height="729" alt="image" src="https://github.com/user-attachments/assets/331a351a-d6b2-4876-b37e-5938407e1d1f" /><div align="center">
   <img src="https://github.com/user-attachments/assets/e4d90e60-ee23-4e28-b9c1-ab35e68fed13" alt="Rivan Cyber Training Institute Logo" width="200">
   <h1>RIVAN CYBER TRAINING INSTITUTE</h1>
 </div>
@@ -298,6 +298,12 @@ message: "failed password"
 
 * There is a success happened on the procedure of brute-forcing the system, we need to prevent this, as blue team we need to prevent this from happening again
 <img width="1482" height="735" alt="image" src="https://github.com/user-attachments/assets/e5247f35-8744-429d-893e-4b64c9e34833" />
+
+* On Elk-Stack, to show the accepted password just type:
+```bash
+message: "Accepted"
+```
+<img width="1579" height="729" alt="image" src="https://github.com/user-attachments/assets/688e9103-db32-434a-b9f0-157c8143af01" />
 
 
 # Step 17: Banning IP Address if Brute-Force happens
