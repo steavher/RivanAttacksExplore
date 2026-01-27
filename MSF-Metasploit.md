@@ -1,4 +1,4 @@
-<img width="1579" height="729" alt="image" src="https://github.com/user-attachments/assets/331a351a-d6b2-4876-b37e-5938407e1d1f" /><div align="center">
+<div align="center">
   <img src="https://github.com/user-attachments/assets/e4d90e60-ee23-4e28-b9c1-ab35e68fed13" alt="Rivan Cyber Training Institute Logo" width="200">
   <h1>RIVAN CYBER TRAINING INSTITUTE</h1>
 </div>
