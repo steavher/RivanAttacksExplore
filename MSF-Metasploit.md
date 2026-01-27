@@ -191,7 +191,7 @@ sudo nano /etc/filebeat/filebeat.yml
 ```bash
 sudo systemctl restart filebeat
 ```
-<img width="436" height="41" alt="image" src="https://github.com/user-attachments/assets/35651bee-fa33-4127-9b7b-e9021431ce78" /><div align="center">
+<img width="436" height="41" alt="image" src="https://github.com/user-attachments/assets/35651bee-fa33-4127-9b7b-e9021431ce78" />
 
 # Step 14: Opening ELK-Stack
 
@@ -240,6 +240,152 @@ show options
 ```
 
 <img width="715" height="659" alt="image" src="https://github.com/user-attachments/assets/e2146a1e-d9fb-4520-86a5-8aa935b70da1" />
+
+* Now we need to Configure the settings of the auxiliary ssh_login
+* 1st set the rhosts to the machine that we need to attack, "Rocky Linux IP Address"
+```bash
+set rhosts (Rocky Linux IP Address)
+```
+<img width="516" height="36" alt="image" src="https://github.com/user-attachments/assets/b5a5fc30-b778-4702-a0b5-a24f1cce0fd3" />
+
+* 2nd is setting the user_file and pass_file, the one that we created text files on desktop
+```bash
+set user_file /home/kali/Desktop/user.txt
+```
+<img width="667" height="36" alt="image" src="https://github.com/user-attachments/assets/247ed947-c135-49af-b7f8-60e81cb52bea" />
+
+* Same goes for the pass_file
+```bash
+set pass_file /home/kali/Desktop/pass.txt
+```
+<img width="704" height="38" alt="image" src="https://github.com/user-attachments/assets/4e3abb42-470e-4e26-8e18-0e56b340d298" />
+
+* 3rd is settings the stop_on_success, so that if the exploitation had been succeeded it will stop and not continue to exploit
+```bash
+set stop_on_success true
+```
+<img width="561" height="35" alt="image" src="https://github.com/user-attachments/assets/f34b9c0f-7b43-4f0e-bfd4-a6afdeafd191" />
+
+* 4th is settings the verbose to true, so we can see the failed and success process
+```bash
+set verbose true
+```
+<img width="497" height="31" alt="image" src="https://github.com/user-attachments/assets/9accf103-50fe-4fb4-8618-986e09cd7168" />
+
+* 5th in configuring is checking again the options to check wether we inputted is correct, and if wrong we need to re-input the wrong input.
+```bash
+show options
+```
+<img width="720" height="700" alt="image" src="https://github.com/user-attachments/assets/ae101db2-3921-44fc-b2d0-47d3aabe4874" />
+
+
+* Last setting, if all the settings is correct run the exploitation by running the command:
+```bash
+exploit
+```
+<img width="512" height="166" alt="image" src="https://github.com/user-attachments/assets/882ec10a-f1fe-45d2-91f0-ad97460852ae" />
+
+# Step 16: Checking Logs on ELK-Stack
+* On Discover search for:
+```bash
+message: "failed password"
+```
+* This means that someone is trying to access the system and trying to brute-force it, as blue-team now, we need to prevent this and block access if needed.
+* 1st we need to demonstrate how is it going to succeed, wait for the verbose to finish from there we will see a success log that brute-force is succeeded and also on the ELK-Logs
+* Another thing is don't stop the ping request of the attacking machine so that we will see if the you can succeed in blocking the icmp request and ssh brute-force login
+<img width="1588" height="791" alt="image" src="https://github.com/user-attachments/assets/3b9e107f-95b9-4b18-abf9-ed15398de5b1" />
+
+
+* There is a success happened on the procedure of brute-forcing the system, we need to prevent this, as blue team we need to prevent this from happening again
+<img width="1482" height="735" alt="image" src="https://github.com/user-attachments/assets/e5247f35-8744-429d-893e-4b64c9e34833" />
+
+
+# Step 17: Banning IP Address if Brute-Force happens
+* To prevent this we need to simulate how prevention works, 1st we need to install fail2ban, Fail2Ban is an open-source intrusion prevention framework for Linux systems that automatically protects servers from brute-force and other automated attacks by monitoring system log files.
+* Install it on the server (Rocky Linux) on SecureCRT, by using the command below:
+```bash
+sudo dnf -y install fail2ban
+```
+<img width="839" height="401" alt="image" src="https://github.com/user-attachments/assets/fbfe45f3-2469-41aa-92f0-49b824f639ea" />
+
+* And enable the service using the command below:
+```bash
+sudo systemctl enable --now fail2ban
+```
+<img width="994" height="55" alt="image" src="https://github.com/user-attachments/assets/e6125d2a-124a-4e93-8ec6-e3f5dcaf57f8" />
+
+* jail doesn't exist yet in Fail2Ban, we need to check the Existing Jails
+```bash
+fail2ban-client status
+```
+<img width="383" height="62" alt="image" src="https://github.com/user-attachments/assets/eb9bd4aa-95cd-4448-834f-be1aeda30739" />
+
+```bash
+fail2ban-client status sshd
+```
+<img width="656" height="68" alt="image" src="https://github.com/user-attachments/assets/0da955fc-10b3-4a08-9a00-2540ebe01023" />
+
+* This means that it has no configurations yet, we need to activate it, below are the steps:
+* Create Your First Real Config, This is the real fix. Enter the command below and press enter
+```bash
+sudo nano /etc/fail2ban/jail.local
+```
+<img width="474" height="27" alt="image" src="https://github.com/user-attachments/assets/b71d2998-2f87-4a12-b87b-770684250c2d" />
+
+* Enter these commands, by copying and paste for easy access
+* These commands have the maximum of 5 attempts of brute forcing after that, the server will automatically ban the ip address of the one who is doing the brute-force attack, after copying and pasting Ctrl+S to save and Ctrl+X to exit.
+```bash
+[sshd]
+
+enabled = true
+port = ssh
+logpath = /var/log/secure
+maxretry = 5
+bantime = 300
+findtime = 60
+action = firewallcmd-allports
+```
+<img width="1229" height="641" alt="image" src="https://github.com/user-attachments/assets/ea589d22-1b35-4f69-897a-f1694b8407e6" />
+
+* Then we need to restart the service for fail2ban
+```bash
+sudo systemctl restart fail2ban
+```
+<img width="482" height="48" alt="image" src="https://github.com/user-attachments/assets/265e0817-fb7d-4f52-9595-1ae2ed101065" />
+
+
+# Step 17: Redoing Brute-Force Attack
+* After doing the fail2ban procedure it will then send logs and send alert if the brute force attack has been done 5 or more times, the server will automatically ban the IP Address of the attacker and also ban the icmp request.
+* On Kali-Linux re-run Exploit to see the changes it made.
+* By running exploit again, we noticed the system server automatically closed the connection and banned the IP Address.
+<img width="1458" height="227" alt="image" src="https://github.com/user-attachments/assets/fb383d09-8d17-457d-a1c1-5097e83047a4" />
+
+# Step 18: Checking Logs on ELK-Stack and on fail2ban
+* On the GUI of ELK-Stack, we can then limit the message by using the word:
+* From here we will see that the server banned the attacker from using brute-force and icmp request or ping
+```bash
+ban
+```
+<img width="1587" height="738" alt="image" src="https://github.com/user-attachments/assets/efd51c42-bff4-40d6-9ec1-6beff6e46b85" />
+<img width="1460" height="231" alt="image" src="https://github.com/user-attachments/assets/9b5bed62-26f1-42a7-b9a6-9936c816dd1b" />
+
+* Lastly to check the banned ip on fail2ban, use this command:
+* From here we see the fail2ban lists of IP Addresses
+```bash
+fail2ban-client status sshd
+```
+<img width="747" height="160" alt="image" src="https://github.com/user-attachments/assets/bb882475-81c5-4b0b-b126-3a18e87d99e1" />
+
+* To unban an IP Address, do this command:
+```bash
+sudo fail2ban-client set sshd unbanip "attacker ip address"
+```
+
+<hr>
+<hr>
+
+* You Just Simulated A Red-Team Attacker, and Blue-Team Attacker all in one, only just you.
+![360_F_1180235355_hzyweFZmPn7qax4hpfjKsDK9nAx7nH4L](https://github.com/user-attachments/assets/8ba0f7ef-636e-431f-b07a-9f4bb572eb7e)
 
 
 
