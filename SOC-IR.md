@@ -194,17 +194,19 @@ Defines the expected time to resolve or escalate the ticket to the next SOC tier
 * This queue is used for incidents escalated from Tier 1 that require deeper investigation and response.
 
 * Escalation Settings (SLA Behavior)
+* Escalation rules were configured to enforce timely incident handling:
 
-* Escalation rules were configured to ensure timely investigation and containment of confirmed incidents:
+* First Response Time: 15 minutes
 
-* First Response Time: 30 minutes
-Ensures escalated incidents are acknowledged by Tier 2 analysts.
+Ensures that alerts are acknowledged quickly after ticket creation.
 
-* Update Time: 30 minutes
-Requires regular updates while investigation and remediation are ongoing.
+* Update Time: 15 minutes
 
-* Solution Time: 120 minutes
-Defines the expected time to contain, resolve, or escalate the incident to Tier 3.
+Requires analysts to provide status updates while the ticket is being investigated.
+
+* Solution Time: 60 minutes
+
+Defines the expected time to resolve or escalate the ticket to the next SOC tier.
 
 * Then click Save
 
@@ -217,16 +219,19 @@ Defines the expected time to contain, resolve, or escalate the incident to Tier 
 
 * This queue is used for advanced analysis of incidents that require threat hunting or forensic investigation beyond standard incident response.
 * Escalation Settings (SLA Behavior)
-* Escalation rules were configured to allow sufficient time for deep analysis:
+* Escalation rules were configured to enforce timely incident handling:
 
-* First Response Time: 60 minutes
-Ensures acknowledgment of escalated high-complexity incidents.
+* First Response Time: 15 minutes
 
-* Update Time: 60 minutes
-Requires periodic updates while forensic analysis is ongoing.
+Ensures that alerts are acknowledged quickly after ticket creation.
 
-* Solution Time: 240 minutes
-Defines the expected time to complete analysis or escalate to Tier 4 if system-level action is required.
+* Update Time: 15 minutes
+
+Requires analysts to provide status updates while the ticket is being investigated.
+
+* Solution Time: 60 minutes
+
+Defines the expected time to resolve or escalate the ticket to the next SOC tier.
 
 * Then click Save
 
