@@ -20,31 +20,63 @@
 
 <hr>
 
-* Under _RivanVMs or on your Downloads folder on D: Drive or C: Drive, Find the ELK-OTRS.V1 or ELK-OTRS.v2 either way its fine, open the .vmx file
+* Under _RivanVMs or on your Downloads folder on D: Drive or C: Drive, Find the OTRS-ELK.v3, open the .vmx file
 * If it is not yet extracted we need to extract it to get the .vmx file
-* Under _RivanVMs or on your Downloads folder on D: Drive or C: Drive, Find the ELK-OTRS.V1 or ELK-OTRS.v2 either way its fine
+* Under _RivanVMs or on your Downloads folder on D: Drive or C: Drive, Find the OTRS-ELK.v3
 * then right click on the folder, then select winrar or any other extractor and click extract to*
-<img width="687" height="199" alt="image" src="https://github.com/user-attachments/assets/5ee97301-7222-4acc-a5dd-39d5f54ed735" />
-<img width="302" height="271" alt="image" src="https://github.com/user-attachments/assets/1a065f4d-e022-4c6f-bdb2-e4b94908a815" />
+<img width="789" height="542" alt="image" src="https://github.com/user-attachments/assets/efdd38c3-144d-4396-8b0d-3746ca75d0d2" />
+
+<img width="308" height="287" alt="image" src="https://github.com/user-attachments/assets/78639aeb-928b-4ddb-96de-984fd8aa24e1" />
 
 * Next is opening the .vmx file, double click the .vmx file to open it on VMware
-<img width="627" height="45" alt="image" src="https://github.com/user-attachments/assets/12cf9883-6ea6-47a0-a669-a833a8bdc47f" />
+<img width="675" height="368" alt="image" src="https://github.com/user-attachments/assets/14719c06-b135-4dc0-b3ae-e417efdb14e8" />
 
-
-<img width="616" height="283" alt="image" src="https://github.com/user-attachments/assets/3824283a-a102-4e6c-befe-f5c0138ba1a3" />
 
 # Step 2: Powering ELK-Stack and OTRS Ticketing System
 * Click Power on this virtual machine, don't forget to check if the Network adapter is set to "NAT"
-* If there is a pop-up if the virtual machine has been moved or copied just click "I copied it"
-<img width="590" height="480" alt="image" src="https://github.com/user-attachments/assets/6bd0bc9a-b726-48e0-b52d-8232339f1105" />
-
-<img width="378" height="208" alt="image" src="https://github.com/user-attachments/assets/c0ae620e-f575-47df-92ca-adc191eadded" />
+* If there is a pop-up that the virtual machine is being used just click "Take Ownersship" and if the virtual machine has been moved or copied just click "I copied it"
+<img width="1024" height="420" alt="image" src="https://github.com/user-attachments/assets/41644471-d52f-4e31-8bf8-7673154e34a4" />
 
 * Next is logging in on the ELK-STACK, the username and password is root:C1sc0123
-<img width="656" height="338" alt="image" src="https://github.com/user-attachments/assets/21e2398c-e292-463b-9304-f075cba9cbdc" />
+<img width="1225" height="597" alt="image" src="https://github.com/user-attachments/assets/a0891d5a-ec6f-4e2f-9f94-ebf51a25315f" />
 
 
-# Step 2.2: Editing the IP Address to make it a DNS type of Address
+
+# Step 2.1: Pre-Requisites - enabling Daemon, Cron, and Mailhog processes
+* In the OTRS-ELK.v3 VMware environment, the OTRS Daemon, Cron, and MailHog services must be enabled to support email processing and background operations.
+* * OTRS Daemon handles background tasks such as ticket processing, notifications, and email handling.
+* *Cron executes scheduled system and maintenance tasks required by OTRS.
+* * MailHog provides a local SMTP service for capturing and testing outgoing emails in the lab environment.
+* These services are required to ensure proper email sending/receiving and automated task execution before continuing with further configuration.
+
+Use the Following commands to execute the process:
+
+* Change Directory to /opt/otrs 
+```bash
+cd /opt/otrs/
+```
+<img width="366" height="81" alt="image" src="https://github.com/user-attachments/assets/88c0320c-fc81-4bbf-929f-7c5ca2dc2abc" />
+
+* Then start the Daemon process and Cron Job using the commands below:
+```bash
+su -c "bin/otrs.Daemon.pl start" -s /bin/bash otrs
+```
+<img width="721" height="116" alt="image" src="https://github.com/user-attachments/assets/e19c29d4-ec03-45b5-a1e4-bed3ea0e940d" />
+
+```bash
+su -c "bin/Cron.sh start" -s /bin/bash otrs
+```
+<img width="658" height="84" alt="image" src="https://github.com/user-attachments/assets/2f892ee1-6593-416e-a301-b61436217110" />
+
+* Finally access the mailhog
+* After accessing mailhog, we will not be typing or accessing anymore of the VMWare we will not access our TUNAY na PC
+```bash
+mailhog
+```
+<img width="597" height="169" alt="image" src="https://github.com/user-attachments/assets/68b9529e-a59b-4a28-ae89-0d9b5f100334" />
+
+
+# Step 2.3: Editing the IP Address to make it a DNS type of Address
 * on your system, we can edit the IP address to make it look more a real-world like SOC
 * On your Drive Navigate to this link "c:\Windows\System32\drivers\etc"
 <img width="1137" height="347" alt="image" src="https://github.com/user-attachments/assets/6f3fed9b-8544-4d53-bdab-1ab36f7ff3bc" />
@@ -54,20 +86,21 @@
 
 * We can then add the IP Address of the given IP Address of linux to change the DNS of it, to our liking for example:
 * after changing the name, save it and access the GUI of the ticketing system
-<img width="935" height="635" alt="image" src="https://github.com/user-attachments/assets/a23f198b-16d7-456d-ba85-b1d0d40738c9" />
+<img width="675" height="450" alt="image" src="https://github.com/user-attachments/assets/77c13fbe-47a3-4c9c-bc6f-9e44e17d839f" />
 
 
-# Step 3: Accessing GUI of Ticketing System
+# Step 3: Accessing GUI of Ticketing System and Mailhog
 * Type the command to show the list of ipv4 addressses, and remember the et0 network adapter
 ```bash
 ip -4 addr
 ```
+<img width="864" height="175" alt="image" src="https://github.com/user-attachments/assets/4998775c-44fe-412b-b688-cf474c1afd2b" />
 
 
 # Step 3.2: Znuny OTRS Ticketing System
 * Access the Index and Customer Dashboard for ticketing system
 ```bash
-http://208.8.8.133/otrs/index.pl?
+http://208.8.8.146/otrs/index.pl?
 ```
 or
 ```bash
@@ -75,15 +108,27 @@ http://socir.ticket.com/otrs/index.pl?
 ```
 
 * The user and password for the index is root@localhost:C1sc0123, then click enter or login
+* We also have users for L1 - L3 agents, we will access this later for ticket handling and ticket escalating process
+```bash
+l1.agent
+C1sc0123
+```
+```bash
+l2.agent
+C1sc0123
+```
+```bash
+l3.agent
+C1sc0123
+```
 <img width="1913" height="650" alt="image" src="https://github.com/user-attachments/assets/91fcdfd2-3f52-45bd-8d1a-e3bf564eef08" />
 
 <img width="1906" height="947" alt="image" src="https://github.com/user-attachments/assets/fa82b950-3d26-41fc-b459-cd5a9a73b073" />
 
-
 <hr>
 
 ```bash
-http://208.8.8.133/otrs/customer.pl
+http://208.8.8.146/otrs/customer.pl
 ```
 or
 ```bash
@@ -93,6 +138,9 @@ http://socir.ticket.com/otrs/customer.pl
 <img width="1914" height="691" alt="image" src="https://github.com/user-attachments/assets/38965a9c-e11c-4e1b-91d5-dd49fe0d3d10" />
 
 <img width="1916" height="579" alt="image" src="https://github.com/user-attachments/assets/532a925e-7b3e-4c1a-8a7c-5771cddeec71" />
+
+
+
 
 # Step 4: Creating 1st Ticket aka at Service Desk
 * On the Customer Panel, we have to create a ticket
