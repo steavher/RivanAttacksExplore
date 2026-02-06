@@ -109,6 +109,7 @@ http://socir.ticket.com/otrs/index.pl?
 
 * The user and password for the index is root@localhost:C1sc0123, then click enter or login
 * We also have users for L1 - L3 agents, we will access this later for ticket handling and ticket escalating process
+* We need to use the admin user which is root@localhost to add services, types, queues, etc.
 ```bash
 l1.agent
 C1sc0123
@@ -220,6 +221,7 @@ SOC Task: Verify if login is legitimate or compromised; reset credentials; analy
 * Escalation Settings (SLA Behavior)
 * Escalation rules were configured to enforce timely incident handling:
 
+* Group - Under SOC-L1
 * First Response Time: 15 minutes
 
 * * Ensures that alerts are acknowledged quickly after ticket creation.
@@ -233,7 +235,8 @@ SOC Task: Verify if login is legitimate or compromised; reset credentials; analy
 * * Defines the expected time to resolve or escalate the ticket to the next SOC tier.
 
 * Then Click save
-<img width="1471" height="818" alt="image" src="https://github.com/user-attachments/assets/717f50b0-89f5-43da-9568-ed1bf83cb4fc" />
+<img width="1212" height="791" alt="image" src="https://github.com/user-attachments/assets/b7444e0d-7fd0-42e1-928f-79ef75be0811" />
+
 <img width="383" height="178" alt="image" src="https://github.com/user-attachments/assets/18bb35c6-8acb-4d41-a3ad-86fc8e78bed7" />
 
 
@@ -243,7 +246,7 @@ SOC Task: Verify if login is legitimate or compromised; reset credentials; analy
 
 * Escalation Settings (SLA Behavior)
 * Escalation rules were configured to enforce timely incident handling:
-
+* Group - Under SOC-L2
 * First Response Time: 15 minutes
 
 * * Ensures that alerts are acknowledged quickly after ticket creation.
@@ -258,7 +261,7 @@ SOC Task: Verify if login is legitimate or compromised; reset credentials; analy
 
 * Then click Save
 
-<img width="1233" height="802" alt="image" src="https://github.com/user-attachments/assets/3913df5e-3c07-4565-98f1-27de607b22c3" />
+<img width="1252" height="785" alt="image" src="https://github.com/user-attachments/assets/f90da185-74d9-47a6-9053-2bb98734f9df" />
 
 <img width="408" height="191" alt="image" src="https://github.com/user-attachments/assets/92512890-61f2-4dc0-b000-6c97e7cd4995" />
 
@@ -268,7 +271,7 @@ SOC Task: Verify if login is legitimate or compromised; reset credentials; analy
 * This queue is used for advanced analysis of incidents that require threat hunting or forensic investigation beyond standard incident response.
 * Escalation Settings (SLA Behavior)
 * Escalation rules were configured to enforce timely incident handling:
-
+* Group - Under SOC-L3
 * First Response Time: 15 minutes
 
 * * Ensures that alerts are acknowledged quickly after ticket creation.
@@ -283,7 +286,8 @@ SOC Task: Verify if login is legitimate or compromised; reset credentials; analy
 
 * Then click Save
 
-<img width="1298" height="790" alt="image" src="https://github.com/user-attachments/assets/2beeec2d-8b76-4413-8d30-1fd49c0bb832" />
+<img width="1326" height="805" alt="image" src="https://github.com/user-attachments/assets/65c24a07-6929-412e-909d-8fc887d51b3c" />
+
 
 <img width="385" height="162" alt="image" src="https://github.com/user-attachments/assets/36920e3f-f504-4b69-9750-850d3140ea2a" />
 
@@ -513,13 +517,13 @@ Thank you.
 <img width="601" height="318" alt="image" src="https://github.com/user-attachments/assets/865113a5-fc6e-4d96-a9df-f0ff8adcd08a" />
 <img width="1904" height="647" alt="image" src="https://github.com/user-attachments/assets/2a7a49fc-cc8d-4aac-b701-8da0461af1ee" />
 
-## Step 9.2: Applying Template 0 - Auto Reply
+## Step 9.3: Applying Template 0 - Auto Reply
 * This step demonstrates how the Service Desk or SOC analyst applies the appropriate response template during the early stage of ticket handling.
 * We can now then apply the appropriate template by clicking the reply button and the blank message
 * But in Real-World Situations, tickets are automatically will receive an email or an corresponding message whatever the siuation is. For that we will Continue to add auto response to our ticketing system.
 <img width="1464" height="589" alt="image" src="https://github.com/user-attachments/assets/fe752198-916a-4b5d-8860-e1245a169fad" />
 
-## Sub-Step 9.3: Configuring Auto Response aka Template 0 - Auto Reply
+## Sub-Step 9.4: Configuring Auto Response aka Template 0 - Auto Reply
 * Create a True Auto Response (System-Level)
 * Go to:
 * * Admin → Auto Responses → Add Auto Response
@@ -552,11 +556,13 @@ Thank you,
 SOC Team
 ```
 
+* Type - auto reply
 * Validity:
 ✔ valid
 
 ➡ Click Save
-<img width="1445" height="689" alt="image" src="https://github.com/user-attachments/assets/94bab1fa-a85c-49ff-aa6f-38429cbf7c53" />
+<img width="1507" height="718" alt="image" src="https://github.com/user-attachments/assets/62b31401-c4e4-4a8c-a150-ed4cdb5d0c67" />
+
 
 ## Sub-Step 9.4: Assign Auto Response to L1 Queue (CRITICAL)
 * Go to Admin → Queues → L1 – Alert Analyst
